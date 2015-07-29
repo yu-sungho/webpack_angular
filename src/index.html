@@ -4,18 +4,52 @@
     <meta charset = "UTF-8">
     <title></title>
     <script src="/bundle.js"></script>
-            <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script src="/elasticsearch.angular.js"></script>
+    <script src="/ng-table.js"></script>
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="./elasticsearch.css">
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./ng-table.css">
+
 </head>
-<body ng-controller="testController">
-<h1>{{date}}</h1>
-<div>
-    <div class="col-md-3">3</div>
-    <div class="col-md-9">9</div>
-    <button class='btn btn-default'>Add Alert</button>
+<body ng-controller="elasticController">
+<div class="page-header">
+	<img src="./elasticsearch.jpeg" style="width:50px;">
+    <span style="font-size: 25px;vertical-align: middle;">ElasticSearch</span>
 </div>
-<script src="/bundle.js"></script>    
+<div id="searchbar" class="searchBar">
+	<input type="text" ng-model="searchText" ng-keypress="searchPress($event)" class="searchInput" placeholder="elastic{search}" id="search">
+	<button class="button_icon button_search" ng-click="search()">GO</button>
+	<button class="button_icon button_search button_create" ng-click="create()">Create</button>
+</div>
+<div>
+    <table ng-table class="table">
+        <tr ng-repeat="item in hits">
+            <td data-title="'BrandName'">{{item._source.brand_name}}</td>
+            <td data-title="'ItemName'">{{item._source.item_name}}</td>
+        </tr>
+    </table>
+</div>
+<script type="text/ng-template" id="myModalContent.html">
+    <div class="modal-header">
+        <h3 class="modal-title">Create Content</h3>
+    </div>
+    <div class="modal-body" style="height: 100px;">
+    	<div class="col-sm-12" style="padding-bottom: 10px;">
+    		<div class="col-sm-2"><label>Title</label></div>
+    		<div class="col-sm-10"><input type="text" ng-model="title" class="searchInput" style="width:100%"></div>
+    	</div>
+    	<div class="col-sm-12">
+    		<div class="col-sm-2"><label>Content</label></div>
+    		<div class="col-sm-10"><input type="text" ng-model="content" class="searchInput" style="width:100%"></div>
+    	</div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" ng-click="ok()">OK</button>
+        <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+    </div>
+</script>
 </body>
 </html>

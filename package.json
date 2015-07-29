@@ -22,6 +22,9 @@
     "angular-bootstrap": "^0.12.2",
     "angular-resource": "^1.4.3",
     "angular-ui-bootstrap": "^0.13.1",
-    "bootstrap": "^3.3.5"
+    "bootstrap": "^3.3.5",
+    "elasticsearch": "^5.0.0",
+    "ng-table": "^0.5.4",
+    "webpack-dev-server-cors": "^1.10.1"
   }
 }
