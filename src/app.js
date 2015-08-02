@@ -18,14 +18,48 @@ myApp.controller("elasticController", function($scope, client, $modal ){
 
     $scope.search = function() {
         client.search({
-          index: 'open_market',
+          index: 'open_test10',
           type: 'market',
           body: {
             query: {
-              term: {
-                item_name: $scope.searchText
+               /* match_phrase : {
+                  unified_search : $scope.searchText
+                }
+              }*/
+                multi_match : {
+                  query: $scope.searchText,
+                  type: "phrase",
+                  fields: [ "brand_name", "item_name" ]
+                }
+                      
+              
+/*              filtered:  {
+                query: {
+                  match: {
+                    unified_search: $scope.searchText
+                  }
+                    /*match : {
+                      brand_name : '삼정'
+                    }
+                  
+                },
+                filter: {
+                  bool: {
+                    must: {
+                      match: {
+                          brand_name : '삼정'
+                      }
+                    }
+                  }
+                }
               }
-            }
+            },*/
+          },
+           filter : {
+              term : {
+                cat_third_id: "1_1_1"
+              }
+            } 
           }
         }).then(function (resp) {
             $scope.hits = resp.hits.hits;
